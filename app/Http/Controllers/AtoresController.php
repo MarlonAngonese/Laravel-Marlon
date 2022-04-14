@@ -29,5 +29,16 @@ class AtoresController extends Controller
       return redirect('atores');
    }
 
+   public function edit($id) {
+      $ator = Ator::find($id);
+      return view('atores.edit', compact('ator'));
+   }
+
+   public function update(AtorRequest $request, $id) {
+      Ator::find($id)->update($request->all());
+
+      return redirect('atores');
+   }
+
 
 }
