@@ -11,7 +11,7 @@
         </ul>
     @endif
 
-    {!! Form::open(['url' => 'atores/store']) !!}
+    {!! Form::open(['route' => 'atores.store']) !!}
         <div class="form-group">
             {!! Form::label('nome', 'Nome:') !!}
             {!! Form::text('nome', null, ['class' => 'form-control', 'required']) !!}

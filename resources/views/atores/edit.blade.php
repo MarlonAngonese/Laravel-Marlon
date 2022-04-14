@@ -11,7 +11,7 @@
         </ul>
     @endif
 
-    {!! Form::open(['url' => "atores/$ator->id/update", 'method' => 'put']) !!}
+    {!! Form::open(['route' => ["atores.update", "id" => $ator->id], 'method' => 'put']) !!}
         <div class="form-group">
             {!! Form::label('nome', 'Nome:') !!}
             {!! Form::text('nome', $ator->nome, ['class' => 'form-control', 'required']) !!}

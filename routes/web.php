@@ -17,13 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('atores', '\App\Http\Controllers\AtoresController@index');
-Route::get('atores/create', '\App\Http\Controllers\AtoresController@create');
-Route::post('atores/store', '\App\Http\Controllers\AtoresController@store');
-Route::get('atores/{id}/destroy', '\App\Http\Controllers\AtoresController@destroy');
-Route::get('atores/{id}/edit', '\App\Http\Controllers\AtoresController@edit');
-Route::put('atores/{id}/update', '\App\Http\Controllers\AtoresController@update');
-
 Route::group(['prefix' => 'atores', 'where' => ['id' => '[0-9]+']], function () {
     Route::get('', ['as' => 'atores', 'uses' => '\App\Http\Controllers\AtoresController@index']);
     Route::get('create', ['as' => 'atores.create', 'uses' => '\App\Http\Controllers\AtoresController@create']);
