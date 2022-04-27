@@ -26,6 +26,14 @@ Route::group(['prefix' => 'atores', 'where' => ['id' => '[0-9]+']], function () 
     Route::post('store', ['as' => 'atores.store', 'uses' => '\App\Http\Controllers\AtoresController@store']);
 });
 
+Route::group(['prefix' => 'nacionalidades', 'where' => ['id' => '[0-9]+']], function () {
+    Route::get('', ['as' => 'nacionalidades', 'uses' => '\App\Http\Controllers\NacionalidadesController@index']);
+    Route::get('create', ['as' => 'nacionalidades.create', 'uses' => '\App\Http\Controllers\NacionalidadesController@create']);
+    Route::get('{id}/destroy', ['as' => 'nacionalidades.destroy', 'uses' => '\App\Http\Controllers\NacionalidadesController@destroy']);
+    Route::get('{id}/edit', ['as' => 'nacionalidades.edit', 'uses' => '\App\Http\Controllers\NacionalidadesController@edit']);
+    Route::put('{id}/update', ['as' => 'nacionalidades.update', 'uses' => '\App\Http\Controllers\NacionalidadesController@update']);
+    Route::post('store', ['as' => 'nacionalidades.store', 'uses' => '\App\Http\Controllers\NacionalidadesController@store']);
+});
 
 Auth::routes();
 
