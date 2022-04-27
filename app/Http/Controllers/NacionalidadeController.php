@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreNacionalidadeRequest;
-use App\Http\Requests\UpdateNacionalidadeRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\NacionalidadeRequest;
 use App\Models\Nacionalidade;
 
 class NacionalidadeController extends Controller
@@ -26,7 +26,7 @@ class NacionalidadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('nacionalidades.create');
     }
 
     /**
@@ -35,31 +35,25 @@ class NacionalidadeController extends Controller
      * @param  \App\Http\Requests\StoreNacionalidadeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNacionalidadeRequest $request)
+    public function store(NacionalidadeRequest $request)
     {
-        //
-    }
+        $novo_nacionalidade = $request->all();
+        Nacionalidade::create($novo_nacionalidade);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Nacionalidade  $nacionalidade
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Nacionalidade $nacionalidade)
-    {
-        //
+        return redirect()->route('nacionalidades');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Nacionalidade  $nacionalidade
+     * @param  \App\Models\Nacionalidade  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nacionalidade $nacionalidade)
+    public function edit($id)
     {
-        //
+        $nacionalidade = Nacionalidade::find($id);
+
+        return view('nacionalidades.edit', compact('nacionalidade'));
     }
 
     /**
@@ -69,19 +63,23 @@ class NacionalidadeController extends Controller
      * @param  \App\Models\Nacionalidade  $nacionalidade
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNacionalidadeRequest $request, Nacionalidade $nacionalidade)
+    public function update(NacionalidadeRequest $request, $id)
     {
-        //
+        Nacionalidade::find($id)->update($request->all());
+
+        return redirect()->route('nacionalidade');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Nacionalidade  $nacionalidade
+     * @param  \App\Models\Nacionalidade  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nacionalidade $nacionalidade)
+    public function destroy($id)
     {
-        //
+        Nacionalidade::find($id)->delete();
+
+        return redirect()->route('nacionalidades');
     }
 }
