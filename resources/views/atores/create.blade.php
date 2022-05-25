@@ -18,14 +18,9 @@
         </div>
         <div class="form-group">
             {!! Form::label('nacionalidade', 'Nacionalidade:') !!}
-            {!! Form::select('nacionalidade', [
-                'BRA' => 'Brasileiro',
-                'USA' => 'Americano',
-                'CAN' => 'Canadense',
-                'ARG' => 'Argentino',
-            ], 'BRA',
-                ['class' => 'form-control', 'required']
-            ) !!}
+            {!! Form::select('nacionalidade_id',
+                            \App\Models\Nacionalidade::orderBy('descricao')->pluck('descricao', 'id')->toArray(),
+                            null, ['class' => 'form-control', 'required'])!!}
         </div>
         <div class="form-group">
             {!! Form::label('dt_nascimento', 'Data de Nascimento:') !!}
