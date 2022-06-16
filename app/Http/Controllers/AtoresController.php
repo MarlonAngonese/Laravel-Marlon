@@ -8,8 +8,18 @@ use App\Models\Ator;
 
 class AtoresController extends Controller
 {
-   public function index() {
-      $atores = Ator::orderBy('nome')->paginate(5);
+   public function index(Request $filtro) {
+      $filtragem = $filtro->get('desc_filtro');
+
+      if ($filtragem == null) {
+         $atores = Ator::orderBy('nome')->paginate(10);
+      } else {
+         $atores = Ator::where('nome', 'like', '%'.$filtragem.'%')
+                        ->orderBy('nome')
+                        ->paginate(10)
+                        ->setpath('atores?desc_filtro=' . $filtragem);
+      }
+
       return view('atores.index', ['atores' => $atores]);
    }
 
@@ -25,8 +35,16 @@ class AtoresController extends Controller
    }
 
    public function destroy($id) {
-      Ator::find($id)->delete();
-      return redirect()->route('atores');
+      try {
+         Ator::find($id)->delete();
+         $ret = ['status' => 200, 'msg' => 'null'];
+      } catch (\Illuminate\Database\QueryException $e) {
+         $ret = ['status' => 500, 'msg' => $e->getMessage()];
+      } catch (\PDOException $e) {
+         $ret = ['status' => 500, 'msg' => $e->getMessage()];
+      }
+
+      return $ret;
    }
 
    public function edit($id) {

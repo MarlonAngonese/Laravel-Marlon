@@ -41,10 +41,16 @@ class NacionalidadesController extends Controller
         return redirect()->route('nacionalidades');
     }
 
-    public function destroy($id)
-    {
-        Nacionalidade::find($id)->delete();
-
-        return redirect()->route('nacionalidades');
-    }
+    public function destroy($id) {
+        try {
+           Nacionalidade::find($id)->delete();
+           $ret = ['status' => 200, 'msg' => 'null'];
+        } catch (\Illuminate\Database\QueryException $e) {
+           $ret = ['status' => 500, 'msg' => $e->getMessage()];
+        } catch (\PDOException $e) {
+           $ret = ['status' => 500, 'msg' => $e->getMessage()];
+        }
+  
+        return $ret;
+     }
 }
